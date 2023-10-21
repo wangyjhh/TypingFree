@@ -66,7 +66,7 @@ for (let char of text.value) {
 
     for (let i = 0; i < pt.length; i++) {
 
-        let c = pt[i]
+        let c = pt[i].replace('。', '.').replace('，', ',')
         let s = py[i]
 
 
@@ -78,32 +78,65 @@ for (let char of text.value) {
     textDate.value.push({ text: char, signs: t })
 }
 
+console.log(textDate.value);
+
+
 const textRef = ref<HTMLDivElement[]>()
 
 const inputValue = ref<string[]>([])
 
-function* textLengthGen() {
-    let l = textDate.value[inputValue.value.length].signs.length
-    for (let i = 0; i < l; i++) {
-        yield i
-    }
-}
-
-const textHandle = textLengthGen()
+let textLength = 0
+let pinyinLength = 0
 
 const onKeyUp = (e: KeyboardEvent) => {
-    let l = textHandle.next().value
-    console.log(l);
+    let signsLength = textDate.value[textLength].signs.length
+    let targetKey = textDate.value[textLength].signs[pinyinLength].c
+    if (e.key === 'Backspace') {
+        inputValue.value.pop()
+        if (pinyinLength === 0) {
+            textLength--
+            pinyinLength = textDate.value[textLength].signs.length
+            textRef.value![textLength].children[0].children[pinyinLength].className = "primary"
+            textRef.value![textLength].children[0].children[pinyinLength].className = "ready"
 
-    if (l === undefined) {
+        } else {
+            textRef.value![textLength].children[0].children[pinyinLength].className = "primary"
+            textRef.value![textLength].children[0].children[pinyinLength + 1].className = "ready"
+            pinyinLength--
+        }
+        console.log(inputValue.value)
         return
     }
+    if (e.key === targetKey) {
+        if (pinyinLength === signsLength - 1) {
+            textRef.value![textLength].children[0].children[pinyinLength].className = "success"
+            textLength++
+            pinyinLength = 0
+            textRef.value![textLength].children[0].children[pinyinLength].className = "ready"
 
-    if (e.key === textDate.value[inputValue.value.length].signs[l].c) {
-        textRef.value![inputValue.value.length].children[0].children[l].className = "success"
-        textRef.value![inputValue.value.length].children[0].children[l + 1].className = "ready"
+        } else {
+            textRef.value![textLength].children[0].children[pinyinLength].className = "success"
+            textRef.value![textLength].children[0].children[pinyinLength + 1].className = "ready"
+            pinyinLength++
+        }
+    } else {
+        if (pinyinLength === signsLength - 1) {
+            textRef.value![textLength].children[0].children[pinyinLength].className = "error"
+            textLength++
+            pinyinLength = 0
+            textRef.value![textLength].children[0].children[pinyinLength].className = "ready"
+
+        } else {
+            textRef.value![textLength].children[0].children[pinyinLength].className = "error"
+            textRef.value![textLength].children[0].children[pinyinLength + 1].className = "ready"
+            pinyinLength++
+        }
     }
+
     inputValue.value.push(e.key)
+    console.log(textLength, pinyinLength);
+
+    console.log(inputValue.value)
 }
 
 </script>
