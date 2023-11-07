@@ -40,8 +40,7 @@ const inputFocus = () => {
     fakeInputRef.value.focus()
 }
 
-const text = ref(`这是一段示例文本，用于展示文本的基本格式和排版。这段文本包含了一些常见的文本元素，例如标题、段落、列表和引用。 
-`)
+const text = ref(`这是一段示例文本`)
 
 const textData = ref(generateTypeTemplate(text.value))
 
@@ -89,6 +88,23 @@ const positionChange = (type: string) => {
 
 const stateChange = (oldValue: Position, newValue: Position, type: SignsState) => {
     /**
+     * 如果textData.value.textDetail[newValue.textPosition]为undefined，则表示结束
+     * 没有下一个文字和字母了，就只更新旧文字字母状态即可
+     */
+    if (!textData.value.textDetail[newValue.textPosition]) {
+        let hasErr = textData.value.textDetail[oldValue.textPosition].signs.filter(sign => sign.d === "error")
+        if (hasErr.length !== 0) {
+            // 又打错的字母则文字状态为错误
+            textData.value.textDetail[oldValue.textPosition].d = "error"
+        } else {
+            // 否则就为正确
+            textData.value.textDetail[oldValue.textPosition].d = "success"
+        }
+        textData.value.textDetail[oldValue.textPosition].signs[oldValue.pinyinPosition].d = type
+        return
+    }
+
+    /**
      * 处理字母状态
      */
 
@@ -124,6 +140,11 @@ const onKeyUp = (e: KeyboardEvent) => {
 }
 
 const onKeyDown = (e: KeyboardEvent) => {
+    if (!textData.value.textDetail[textPosition]) {
+        console.log("结束");
+
+        return
+    }
     let targetKey = textData.value.textDetail[textPosition].signs[pinyinPosition].c
     if (e.key === targetKey) {
         const { oldValue, newValue } = positionChange("next")

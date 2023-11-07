@@ -1,5 +1,6 @@
-declare type SignsState = "primary" | "success" | "error" | "warning" | "ready"
-declare type TextState = "primary" | "success" | "error" | "tready"
+type BaseState = "primary" | "success" | "error"
+declare type SignsState = BaseState | "warning" | "ready"
+declare type TextState = BaseState | "tready"
 
 declare interface Signs {
 	c: string // 拼音字母数组
