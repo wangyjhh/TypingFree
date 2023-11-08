@@ -3,13 +3,13 @@
         <input ref="fakeInputRef" id="fake-input" type="password" autocomplete="off" autocorrect="off" autocapitalize="off"
             aria-hidden="true" style="outline: none; position: fixed; font-size: 1px; left: 50%; top: -200px"
             @keyup="onKeyUp($event)" @keydown="onKeyDown($event)" />
-        <div position-fixed z-999 m-x="24px" m-y="12px" p-x="24px" p-y="12px" flex flex-row flex-justify-between>
-            <!-- <button btn @click="toggleDark()">切换</button> -->
-        </div>
-        <div h-full bg="#1b1b1b" b-rd="24px" mb="12px" flex="~ 1 1 0%" flex-wrap flex-justify-start pt35 pb20 px10 gap5
+        <div h-full bg="#1b1b1b" b-rd="24px" mb="12px" flex="~ 1 1 0%" flex-wrap flex-justify-start pt35 pb25 px10 gap5
             row-gap="30px" @click="inputFocus">
-            <div h-full bg="#1b1b1b" mb="12px" flex="~ 1 1 0%" flex-wrap flex-justify-start gap10 row-gap="30px"
-                overflow-y-auto class="type-container">
+            <div absolute top="5%" left="50%" center>
+                <button btn @click="reset">重打</button>
+            </div>
+            <div ref="typeContainerRef" h-full bg="#1b1b1b" mb="12px" flex="~ 1 1 0%" flex-wrap flex-justify-start gap10
+                row-gap="30px" overflow-y-auto class="type-container">
                 <div ref="textRef" v-for="(item, index) in textData.textDetail" :key="index" flex flex-col flex-items-center
                     font-size-45px>
                     <div flex flex-row gap1>
@@ -22,15 +22,27 @@
                     <span :class="item.d" font-900>{{ item.text }}</span>
                 </div>
             </div>
+            <div absolute bottom="5%" left="50%" center>
+                <span m="0 3">准确率 <b>{{ accuracy }}</b></span>
+                <span m="0 3">按键速度 <b>{{ 1 }}</b></span>
+                <span m="0 3">打字速度 <b>{{ 1 }}</b></span>
+                <span m="0 3">进度 <b>{{ schedule }}</b></span>
+            </div>
         </div>
     </div>
-</template>
+</template> 
 
 <script lang='ts' setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import { generateTypeTemplate } from '../utils/index'
 
 const fakeInputRef = ref()
+
+const typeContainerRef = ref<HTMLDivElement>()
+
+const reset = () => {
+    location.reload()
+}
 
 onMounted(() => {
     inputFocus()
@@ -40,16 +52,9 @@ const inputFocus = () => {
     fakeInputRef.value.focus()
 }
 
-const text = ref(`这是一段示例文本`)
+const text = ref(`这是一段示例文本，用于展示文本的基本格式和排版。这段文本包含了一些常见的文本元素，例如标题、段落、列表和引用。`)
 
-const textData = ref(generateTypeTemplate(text.value))
-
-const init = () => {
-    textData.value.textDetail[0].signs[0].d = "ready"
-    textData.value.textDetail[0].d = "tready"
-}
-
-init()
+const textData = ref<TextData>(generateTypeTemplate(text.value))
 
 // 文本文字位置
 let textPosition = 0
@@ -57,6 +62,19 @@ let textPosition = 0
 let pinyinPosition = 0
 // 退格次数
 let backspaceCount = 0
+// 输入次数
+let inputCount = 0
+// 进度
+let schedule = "0%"
+// 准确率
+let accuracy = "0%"
+
+const init = () => {
+    textData.value.textDetail[0].signs[0].d = "ready"
+    textData.value.textDetail[0].d = "tready"
+}
+
+init()
 
 /**
  * 处理当前输入位置的函数
@@ -92,9 +110,10 @@ const stateChange = (oldValue: Position, newValue: Position, type: SignsState) =
      * 没有下一个文字和字母了，就只更新旧文字字母状态即可
      */
     if (!textData.value.textDetail[newValue.textPosition]) {
-        let hasErr = textData.value.textDetail[oldValue.textPosition].signs.filter(sign => sign.d === "error")
-        if (hasErr.length !== 0) {
-            // 又打错的字母则文字状态为错误
+        let oldSigns = textData.value.textDetail[oldValue.textPosition].signs
+        let hasErr = oldSigns.filter(sign => sign.d === "error")
+        if (hasErr.length !== 0 || type === "error") {
+            // 有打错的字母,或最后一个字母打错则文字状态为错误
             textData.value.textDetail[oldValue.textPosition].d = "error"
         } else {
             // 否则就为正确
@@ -135,18 +154,53 @@ const stateChange = (oldValue: Position, newValue: Position, type: SignsState) =
     }
 }
 
+// 滚动条自动滚动
+const scrollChange = () => {
+    nextTick(() => {
+        if (textPosition >= textData.value.textDetail.length) {
+            typeContainerRef.value!.children[textPosition - 1].scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+        } else {
+            typeContainerRef.value!.children[textPosition].scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+        }
+    })
+}
+
+// 打字的数据
+const updateTypeInfo = () => {
+    let float = parseInt((((inputCount + 1) / textData.value.totalSigns) * 100).toFixed(2))
+    schedule = `${float}%`
+    let rightCount = 0
+    for (let i = 0; i < textPosition; i++) {
+        if (textData.value.textDetail[i].d == "success") {
+            rightCount++
+        }
+    }
+    accuracy = `${rightCount == 0 ? 0 : parseInt((((rightCount) / textPosition) * 100).toFixed(2))
+        }% `
+}
+
+// 结束判断
+const end = () => {
+    if (textPosition == textData.value.textDetail.length) {
+        alert("恭喜你，打字完成！")
+    }
+}
+
 const onKeyUp = (e: KeyboardEvent) => {
-    console.log(backspaceCount)
+    if (!textData.value.textDetail[textPosition]) {
+        return
+    }
+    scrollChange()
 }
 
 const onKeyDown = (e: KeyboardEvent) => {
     if (!textData.value.textDetail[textPosition]) {
-        console.log("结束");
-
         return
     }
+    scrollChange()
     let targetKey = textData.value.textDetail[textPosition].signs[pinyinPosition].c
     if (e.key === targetKey) {
+        inputCount++
         const { oldValue, newValue } = positionChange("next")
         // 如果退格数大于零则表示本次输入为修改
         if (backspaceCount > 0) {
@@ -156,23 +210,30 @@ const onKeyDown = (e: KeyboardEvent) => {
             return
         }
         stateChange(oldValue, newValue, "success")
+        updateTypeInfo()
         return
     } else if (e.key !== targetKey && e.key !== "Backspace") {
+        inputCount++
         const { oldValue, newValue } = positionChange("next")
         // 如果退格数大于零即使打错也要减少退格数
         if (backspaceCount > 0) {
             backspaceCount--
         }
         stateChange(oldValue, newValue, "error")
+        updateTypeInfo()
         return
     } else if (e.key === "Backspace" && textPosition + pinyinPosition !== 0) {
+        inputCount--
         const { oldValue, newValue } = positionChange("prev")
         stateChange(oldValue, newValue, "primary")
         // 记录退格次数
         backspaceCount++
+        updateTypeInfo()
         return
     }
 }
+
+
 
 </script>
 

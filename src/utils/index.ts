@@ -3,8 +3,9 @@ import pinyin from "pinyin"
 
 export const generateTypeTemplate = (text: string) => {
 	text = text.trim()
-	const template = ref<{ textDetail: TextDetail[]; totalSigns: number }>({
+	const template = ref<TextData>({
 		textDetail: [],
+		totalCharacters: 0,
 		totalSigns: 0,
 	})
 
@@ -16,7 +17,7 @@ export const generateTypeTemplate = (text: string) => {
 		let pinyinAlphabet = pinyin(char).join("")
 		let signs: Signs[] = []
 		for (let i = 0; i < pinyinAlphabet.length; i++) {
-			let c = pinyinCharacters[i].replace("。", ".").replace("，", ",").replace("、", "\\")
+			let c = pinyinCharacters[i].replace("。", ".").replace("，", ",").replace("、", "\\").replace(" ", "")
 			let s = pinyinAlphabet[i]
 
 			if (c !== s) signs.push({ c, s, d: "primary" })
@@ -24,6 +25,7 @@ export const generateTypeTemplate = (text: string) => {
 		}
 		template.value.textDetail.push({ text: char, signs: signs, signsLength: signs.length, d: "primary" })
 		template.value.totalSigns += signs.length
+		template.value.totalCharacters += 1
 	}
 
 	return template.value

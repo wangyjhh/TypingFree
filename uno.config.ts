@@ -44,6 +44,12 @@ export default defineConfig({
 				color: "#f9fafc",
 			},
 		],
+		[
+			"center",
+			{
+				transform: "translate(-50%)",
+			},
+		],
 	],
 	shortcuts: [
 		[

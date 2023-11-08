@@ -15,6 +15,12 @@ declare interface TextDetail {
 	d?: TextState
 }
 
+declare interface TextData {
+	textDetail: TextDetail[]
+	totalCharacters: number
+	totalSigns: number
+}
+
 declare interface Position {
 	textPosition: number
 	pinyinPosition: number
