@@ -45,9 +45,27 @@ export default defineConfig({
 			},
 		],
 		[
-			"center",
+			"centerX",
 			{
 				transform: "translate(-50%)",
+			},
+		],
+		[
+			"centerXY",
+			{
+				transform: "translate(-50%,-50%)",
+			},
+		],
+		[
+			"shadow",
+			{
+				"box-shadow": "0 2px 8px rgba(0, 0, 0, 0.2)",
+			},
+		],
+		[
+			"mohu",
+			{
+				"backdrop-filter": "blur(3px)",
 			},
 		],
 	],

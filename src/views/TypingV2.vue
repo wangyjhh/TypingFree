@@ -5,7 +5,7 @@
             @keyup="onKeyUp($event)" @keydown="onKeyDown($event)" />
         <div h-full bg="#1b1b1b" b-rd="24px" mb="12px" flex="~ 1 1 0%" flex-wrap flex-justify-start pt35 pb25 px10 gap5
             row-gap="30px" @click="inputFocus">
-            <div absolute top="5%" left="50%" center>
+            <div absolute top="5%" left="50%" centerX>
                 <button btn @click="reset">重打</button>
             </div>
             <div ref="typeContainerRef" h-full bg="#1b1b1b" mb="12px" flex="~ 1 1 0%" flex-wrap flex-justify-start gap10
@@ -22,25 +22,36 @@
                     <span :class="item.d" font-900>{{ item.text }}</span>
                 </div>
             </div>
-            <div absolute bottom="5%" left="50%" center>
+            <div absolute bottom="5%" left="50%" centerX>
                 <span m="0 3">准确率 <b>{{ accuracy }}</b></span>
-                <span m="0 3">按键速度 <b>{{ 1 }}</b></span>
-                <span m="0 3">打字速度 <b>{{ 1 }}</b></span>
+                <span m="0 3">按键速度 <b>{{ keySpeed }}键/分钟</b></span>
+                <span m="0 3">打字速度 <b>{{ typingSpeed }}字/分钟</b></span>
                 <span m="0 3">进度 <b>{{ schedule }}</b></span>
             </div>
         </div>
     </div>
+    <Dialog :isVisible="endDialogDisplay" title="成绩" width="15%" @confirm="reset" @close="closeDialog">
+        <div m="0 3">准确率 <b>{{ accuracy }}</b></div>
+        <div m="0 3">按键速度 <b>{{ keySpeed }}键/分钟</b></div>
+        <div m="0 3">打字速度 <b>{{ typingSpeed }}字/分钟</b></div>
+        <div m="0 3">总用时 <b>{{ ((endTime - startTime) / 1000).toFixed(2) }}秒</b></div>
+        <div m="0 3">正确字数 <b>{{ correctCount }}字</b></div>
+        <div m="0 3">错误字数 <b>{{ errorCount }}字</b></div>
+        <div m="0 3">退格 <b>{{ backCount }}次</b></div>
+    </Dialog>
 </template> 
 
 <script lang='ts' setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, nextTick, watch } from 'vue'
 import { generateTypeTemplate } from '../utils/index'
+import Dialog from '@/components/Dialog.vue'
 
 const fakeInputRef = ref()
 
 const typeContainerRef = ref<HTMLDivElement>()
 
 const reset = () => {
+    closeDialog()
     location.reload()
 }
 
@@ -68,6 +79,21 @@ let inputCount = 0
 let schedule = "0%"
 // 准确率
 let accuracy = "0%"
+// 打字开始时间
+let startTime: number
+// 打字结束时间
+let endTime: number
+// 按键速度
+let keySpeed = "0"
+// 打字速度
+let typingSpeed = "0"
+// 正确的字数
+let correctCount = 0
+// 错误的字数
+let errorCount = 0
+// 退格的字数
+let backCount = 0
+
 
 const init = () => {
     textData.value.textDetail[0].signs[0].d = "ready"
@@ -165,7 +191,9 @@ const scrollChange = () => {
     })
 }
 
-// 打字的数据
+
+
+// 更新打字练习相关的数据
 const updateTypeInfo = () => {
     let float = parseInt((((inputCount + 1) / textData.value.totalSigns) * 100).toFixed(2))
     schedule = `${float}%`
@@ -177,12 +205,36 @@ const updateTypeInfo = () => {
     }
     accuracy = `${rightCount == 0 ? 0 : parseInt((((rightCount) / textPosition) * 100).toFixed(2))
         }% `
+    const currentTime = Date.now()
+    if (!startTime) startTime = currentTime
+    const timeDiff = currentTime - startTime
+    if (timeDiff === 0) return
+    keySpeed = (inputCount / timeDiff * 60000).toFixed()
+    typingSpeed = (textPosition / timeDiff * 60000).toFixed()
+}
+
+const endDialogDisplay = ref(false)
+
+const closeDialog = () => {
+    endDialogDisplay.value = false
 }
 
 // 结束判断
 const end = () => {
     if (textPosition == textData.value.textDetail.length) {
-        alert("恭喜你，打字完成！")
+        endTime = Date.now()
+        const timeDiff = endTime - startTime
+        keySpeed = (inputCount / timeDiff * 60000).toFixed()
+        typingSpeed = (textPosition / timeDiff * 60000).toFixed()
+        textData.value.textDetail.forEach((it) => {
+            if (it.d == "success") {
+                correctCount++
+            }
+            if (it.d == "error") {
+                errorCount++
+            }
+        })
+        endDialogDisplay.value = true
     }
 }
 
@@ -210,7 +262,7 @@ const onKeyDown = (e: KeyboardEvent) => {
             return
         }
         stateChange(oldValue, newValue, "success")
-        updateTypeInfo()
+
         return
     } else if (e.key !== targetKey && e.key !== "Backspace") {
         inputCount++
@@ -220,7 +272,7 @@ const onKeyDown = (e: KeyboardEvent) => {
             backspaceCount--
         }
         stateChange(oldValue, newValue, "error")
-        updateTypeInfo()
+
         return
     } else if (e.key === "Backspace" && textPosition + pinyinPosition !== 0) {
         inputCount--
@@ -228,13 +280,13 @@ const onKeyDown = (e: KeyboardEvent) => {
         stateChange(oldValue, newValue, "primary")
         // 记录退格次数
         backspaceCount++
-        updateTypeInfo()
+        backCount++
         return
     }
 }
 
-
-
+watch(textData.value, () => {
+    updateTypeInfo()
+    end()
+})
 </script>
-
-<style scoped></style>
