@@ -2,7 +2,7 @@
     <div w="100%" h="100%" p-20px flex flex-col justify-center flex-items-center>
         <div w="100%" text-center font-size-60px m-b="100px" flex flex-items-baseline justify-center>
             <div>{{ str }}</div>
-            <div w-15px h-22px border-white :class="isShow ? `border-b-5px` : ``"></div>
+            <div w-15px h-22px border="#d4d4d4d5" :class="isShow ? `border-b-5px` : ``"></div>
         </div>
         <div>
             <button btn m-r-50px @click="router.push('/Typing')">开始练习</button>
@@ -43,7 +43,11 @@ let str = ref("")
 
 const autoPrint = () => {
     let index = 0
-    setInterval(() => {
+    let Time = setInterval(() => {
+        if (index >= title.length - 1) {
+            clearInterval(Time)
+            return
+        }
         str.value += title.substring(index, index + 1)
         index++
     }, 150)
