@@ -1,6 +1,6 @@
 {
-	"name": "nice_typing",
-	"version": "0.0.0",
+	"name": "typing-free",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite --open",
@@ -13,6 +13,7 @@
 	"dependencies": {
 		"@vueuse/core": "^10.4.1",
 		"pinyin": "3.0.0-alpha.5",
+		"typeit": "^8.7.1",
 		"vue": "^3.3.4",
 		"vue-router": "^4.2.5"
 	},

@@ -11,6 +11,9 @@ dependencies:
   pinyin:
     specifier: 3.0.0-alpha.5
     version: registry.npmmirror.com/pinyin@3.0.0-alpha.5
+  typeit:
+    specifier: ^8.7.1
+    version: registry.npmmirror.com/typeit@8.7.1
   vue:
     specifier: ^3.3.4
     version: registry.npmmirror.com/vue@3.3.4
@@ -3487,6 +3490,13 @@ packages:
     version: 4.5.0
     engines: {node: '>=16'}
     dev: true
+
+  registry.npmmirror.com/typeit@8.7.1:
+    resolution: {integrity: sha512-Bx/O4NMz10NWh9FWYtVwV4XwGHF9UDJfpCZPJRtw2/oUcahFAStU8J0t19aroPfTV6s1UlS5ICoqilOqmEnh2Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/typeit/-/typeit-8.7.1.tgz}
+    name: typeit
+    version: 8.7.1
+    requiresBuild: true
+    dev: false
 
   registry.npmmirror.com/typescript@5.2.2:
     resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/typescript/-/typescript-5.2.2.tgz}
