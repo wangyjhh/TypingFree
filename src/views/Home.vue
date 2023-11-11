@@ -1,7 +1,8 @@
 <template>
     <div w="100%" h="100%" p-20px flex flex-col justify-center flex-items-center>
-        <div font-size-60px m-b="100px">
-            Nice Typing
+        <div w="100%" text-center font-size-60px m-b="100px" flex flex-items-baseline justify-center>
+            <div>{{ str }}</div>
+            <div w-15px h-22px border-white :class="isShow ? `border-b-5px` : ``"></div>
         </div>
         <div>
             <button btn m-r-50px @click="router.push('/Typing')">开始练习</button>
@@ -23,10 +24,30 @@
 </template>
 
 <script lang='ts' setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import router from '@/router/index'
 import Dialog from '@/components/Dialog.vue'
 import { usText } from '@/composables/index';
+
+const isShow = ref(false)
+
+onMounted(() => {
+    setInterval(() => {
+        isShow.value = !isShow.value
+    }, 500)
+    autoPrint()
+})
+
+const title = 'Nice Typing'
+let str = ref("")
+
+const autoPrint = () => {
+    let index = 0
+    setInterval(() => {
+        str.value += title.substring(index, index + 1)
+        index++
+    }, 150)
+}
 
 usText.value = ""
 
