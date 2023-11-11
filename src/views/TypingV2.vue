@@ -6,12 +6,13 @@
         <div h-full bg="#1b1b1b" b-rd="24px" mb="12px" flex="~ 1 1 0%" flex-wrap flex-justify-start pt35 pb25 px10 gap5
             row-gap="30px" @click="inputFocus">
             <div absolute top="5%" left="50%" centerX>
-                <button btn @click="reset">重打</button>
+                <button btn @click="reset" m-r-20px>重打</button>
+                <button btn @click="back">返回</button>
             </div>
             <div ref="typeContainerRef" h-full bg="#1b1b1b" mb="12px" flex="~ 1 1 0%" flex-wrap flex-justify-start gap10
                 row-gap="30px" overflow-y-auto class="type-container">
                 <div ref="textRef" v-for="(item, index) in textData.textDetail" :key="index" flex flex-col flex-items-center
-                    font-size-45px>
+                    justify-center font-size-45px>
                     <div flex flex-row gap1>
                         <span v-for="(i, ind) in item.signs" :key="ind">
                             <span :class="i.d" font-100>
@@ -23,14 +24,14 @@
                 </div>
             </div>
             <div absolute bottom="5%" left="50%" centerX>
-                <span m="0 3">准确率 <b>{{ accuracy }}</b></span>
-                <span m="0 3">按键速度 <b>{{ keySpeed }}键/分钟</b></span>
-                <span m="0 3">打字速度 <b>{{ typingSpeed }}字/分钟</b></span>
-                <span m="0 3">进度 <b>{{ schedule }}</b></span>
+                <span m="0 3">准确率 <b font-size-20px>{{ accuracy }}</b></span>
+                <span m="0 3">按键速度 <b font-size-20px>{{ keySpeed }}键/分钟</b></span>
+                <span m="0 3">打字速度 <b font-size-20px>{{ typingSpeed }}字/分钟</b></span>
+                <span m="0 3">进度 <b font-size-20px>{{ schedule }}</b></span>
             </div>
         </div>
     </div>
-    <Dialog :isVisible="endDialogDisplay" title="成绩" width="15%" @confirm="reset" @close="closeDialog">
+    <Dialog :isVisible="endDialogDisplay" title="成绩" width="15%">
         <div m="0 3">准确率 <b>{{ accuracy }}</b></div>
         <div m="0 3">按键速度 <b>{{ keySpeed }}键/分钟</b></div>
         <div m="0 3">打字速度 <b>{{ typingSpeed }}字/分钟</b></div>
@@ -38,21 +39,34 @@
         <div m="0 3">正确字数 <b>{{ correctCount }}字</b></div>
         <div m="0 3">错误字数 <b>{{ errorCount }}字</b></div>
         <div m="0 3">退格 <b>{{ backCount }}次</b></div>
+        <template v-slot:footer>
+            <div flex justify-between>
+                <button btn @click="reset">再来一次</button>
+                <button btn @click="closeDialog">关闭</button>
+            </div>
+        </template>
     </Dialog>
 </template> 
 
 <script lang='ts' setup>
 import { ref, onMounted, nextTick, watch } from 'vue'
+import router from '@/router/index'
 import { generateTypeTemplate } from '../utils/index'
 import Dialog from '@/components/Dialog.vue'
+import { usText } from '@/composables/index';
 
 const fakeInputRef = ref()
-
+sessionStorage
 const typeContainerRef = ref<HTMLDivElement>()
 
 const reset = () => {
     closeDialog()
     location.reload()
+}
+
+const back = () => {
+    usText.value = ""
+    router.back()
 }
 
 onMounted(() => {
@@ -62,8 +76,17 @@ onMounted(() => {
 const inputFocus = () => {
     fakeInputRef.value.focus()
 }
+const text = ref("")
 
-const text = ref(`这是一段示例文本，用于展示文本的基本格式和排版。这段文本包含了一些常见的文本元素，例如标题、段落、列表和引用。`)
+if (usText.value === "") {
+    text.value = `丙辰中秋，欢饮达旦，大醉，作此篇，兼怀子由。 
+明月几时有？把酒问青天。不知天上宫阙，今夕是何年。我欲乘风归去，又恐琼楼玉宇，高处不胜寒。起舞弄清影，何似在人间。
+转朱阁，低绮户，照无眠。不应有恨，何事长向别时圆？人有悲欢离合，月有阴晴圆缺，此事古难全。但愿人长久，千里共婵娟。`
+} else {
+    text.value = usText.value
+}
+
+
 
 const textData = ref<TextData>(generateTypeTemplate(text.value))
 
@@ -239,6 +262,8 @@ const end = () => {
 }
 
 const onKeyUp = (e: KeyboardEvent) => {
+    console.log(e.key);
+
     if (!textData.value.textDetail[textPosition]) {
         return
     }
@@ -251,6 +276,10 @@ const onKeyDown = (e: KeyboardEvent) => {
     }
     scrollChange()
     let targetKey = textData.value.textDetail[textPosition].signs[pinyinPosition].c
+
+    if (e.key === "Shift" || e.key === "Tab") {
+        return
+    }
     if (e.key === targetKey) {
         inputCount++
         const { oldValue, newValue } = positionChange("next")

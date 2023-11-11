@@ -51,6 +51,12 @@ export default defineConfig({
 			},
 		],
 		[
+			"centerY",
+			{
+				transform: "translate(,-50%)",
+			},
+		],
+		[
 			"centerXY",
 			{
 				transform: "translate(-50%,-50%)",
