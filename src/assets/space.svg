@@ -1,0 +1,14 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+    <g>
+        <title>Layer 1</title>
+        <g id="svg_18">
+            <line stroke="#d4d4d4" stroke-width="2" id="svg_15" y2="37.53192" x2="52.6383" y1="37.42553" x1="11.3617"
+                stroke-opacity="0.84" fill="none" />
+            <line id="svg_16" y2="38.48936" x2="10.40425" y1="25.51064" x1="10.40425" stroke-opacity="0.84"
+                stroke-width="2" stroke="#d4d4d4" fill="none" />
+            <line id="svg_17" y2="38.48936" x2="53.59575" y1="25.51064" x1="53.59575" stroke-opacity="0.84"
+                stroke-width="2" stroke="#d4d4d4" fill="none" />
+        </g>
+    </g>
+
+</svg>

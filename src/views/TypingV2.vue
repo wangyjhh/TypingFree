@@ -13,12 +13,15 @@
                 row-gap="30px" overflow-y-auto class="type-container">
                 <div ref="textRef" v-for="(item, index) in textData.textDetail" :key="index" flex flex-col flex-items-center
                     justify-center font-size-45px>
-                    <div flex flex-row gap1>
+                    <div flex flex-row gap1 v-if="item.text !== ' '">
                         <span v-for="(i, ind) in item.signs" :key="ind">
                             <span :class="i.d" font-100>
                                 {{ i.s ? i.s : i.c }}
                             </span>
                         </span>
+                    </div>
+                    <div flex flex-row gap1 v-else>
+                        <img :class="item.signs[0].d" src="../assets/space.svg">
                     </div>
                     <span :class="item.d" font-900>{{ item.text }}</span>
                 </div>
@@ -262,8 +265,6 @@ const end = () => {
 }
 
 const onKeyUp = (e: KeyboardEvent) => {
-    console.log(e.key);
-
     if (!textData.value.textDetail[textPosition]) {
         return
     }

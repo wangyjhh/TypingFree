@@ -44,10 +44,10 @@ export const generateTypeTemplate = (text: string) => {
 			let s = pinyinAlphabet[i]
 			if (pinyinCharacters === " ") {
 				c = " "
-				s = "︺"
+				s = "space"
 			} else if (pinyinCharacters === "\n") {
 				c = "Enter"
-				s = "⏎"
+				s = "↵"
 			}
 			if (c !== s) signs.push({ c, s, d: "primary" })
 			else signs.push({ c, d: "primary" })
