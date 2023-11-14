@@ -20,6 +20,9 @@ dependencies:
   oracledb:
     specifier: ^6.1.0
     version: registry.npmmirror.com/oracledb@6.1.0
+  pinyin-pro:
+    specifier: ^3.17.0
+    version: registry.npmmirror.com/pinyin-pro@3.17.0
 
 devDependencies:
   '@types/express':
@@ -2266,6 +2269,12 @@ packages:
     version: 2.3.1
     engines: {node: '>=8.6'}
     dev: true
+
+  registry.npmmirror.com/pinyin-pro@3.17.0:
+    resolution: {integrity: sha512-0R+K1kDl2Fb21nqKjb9hxKHya/fWuOJCSElWqdh17THSL/cgq95PP/QrJINFezFooepCiP+pbUenV2pRloAHHQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pinyin-pro/-/pinyin-pro-3.17.0.tgz}
+    name: pinyin-pro
+    version: 3.17.0
+    dev: false
 
   registry.npmmirror.com/pkg-types@1.0.3:
     resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pkg-types/-/pkg-types-1.0.3.tgz}

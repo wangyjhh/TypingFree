@@ -23,9 +23,6 @@ export default defineConfig({
 		rollupOptions: {
 			treeshake: true,
 			manualChunks(id) {
-				if (id.includes("pinyin")) {
-					return "pinyin"
-				}
 				if (id.includes("@vueuse/")) {
 					return "vueuse"
 				}

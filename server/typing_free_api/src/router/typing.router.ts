@@ -1,8 +1,10 @@
 import { Router } from "express"
-import { hello } from "../controller/typing.controller"
+import { getdefault, getcustom, pinyin } from "../controller/typing.controller"
 
 const router: Router = Router()
 
-router.get("/hello/:username", hello)
+router.get("/getdefault/:id", getdefault)
+router.post("/getcustom", getcustom)
+router.post("/getpinyin", pinyin)
 
 export default router

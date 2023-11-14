@@ -13,7 +13,7 @@
                 row-gap="30px" overflow-y-auto class="type-container">
                 <div ref="textRef" v-for="(item, index) in textData.textDetail" :key="index" flex flex-col flex-items-center
                     justify-center font-size-45px>
-                    <div flex flex-row gap1 v-if="item.text !== ' '">
+                    <div flex flex-row gap1 v-if="item.text !== '①'">
                         <span v-for="(i, ind) in item.signs" :key="ind">
                             <span :class="i.d" font-100>
                                 {{ i.s ? i.s : i.c }}
@@ -23,7 +23,7 @@
                     <div flex flex-row gap1 v-else>
                         <img :class="item.signs[0].d" src="../assets/space.svg">
                     </div>
-                    <span :class="item.d" font-900>{{ item.text }}</span>
+                    <span :class="item.d" font-900>{{ item.text === "①" ? " " : item.text }}</span>
                 </div>
             </div>
             <div absolute bottom="5%" left="50%" centerX>
@@ -54,12 +54,11 @@
 <script lang='ts' setup>
 import { ref, onMounted, nextTick, watch } from 'vue'
 import router from '@/router/index'
-import { generateTypeTemplate } from '../utils/index'
 import Dialog from '@/components/Dialog.vue'
 import { usText } from '@/composables/index';
 
 const fakeInputRef = ref()
-sessionStorage
+
 const typeContainerRef = ref<HTMLDivElement>()
 
 const reset = () => {
@@ -79,19 +78,9 @@ onMounted(() => {
 const inputFocus = () => {
     fakeInputRef.value.focus()
 }
-const text = ref("")
 
-if (usText.value === "") {
-    text.value = `丙辰中秋，欢饮达旦，大醉，作此篇，兼怀子由。 
-明月几时有？把酒问青天。不知天上宫阙，今夕是何年。我欲乘风归去，又恐琼楼玉宇，高处不胜寒。起舞弄清影，何似在人间。
-转朱阁，低绮户，照无眠。不应有恨，何事长向别时圆？人有悲欢离合，月有阴晴圆缺，此事古难全。但愿人长久，千里共婵娟。`
-} else {
-    text.value = usText.value
-}
+const textData = ref<TextData>(JSON.parse(usText.value))
 
-
-
-const textData = ref<TextData>(generateTypeTemplate(text.value))
 
 // 文本文字位置
 let textPosition = 0

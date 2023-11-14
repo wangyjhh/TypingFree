@@ -5,7 +5,7 @@
             <div id="typing"></div>
         </div>
         <div>
-            <button btn m-r-50px @click="router.push('/Typing')">开始练习</button>
+            <button btn m-r-50px @click="defaultStart">开始练习</button>
             <button btn @click="dialogDisplay = true">自定义练习</button>
         </div>
     </div>
@@ -31,6 +31,7 @@ import router from '@/router/index'
 import Dialog from '@/components/Dialog.vue'
 import { usText } from '@/composables/index'
 import TypeIt from "typeit";
+import { getDefault, getCustom } from '@/api/index';
 
 let cursor = ref(`
 <span style="margin-left:8px;background:rgba(249, 250, 252, 0.2);color:#f9faf;box-shadow:#ff7008 0px -4px 0px inset">|</span>`)
@@ -56,14 +57,19 @@ onMounted(() => {
         .go()
 })
 
-usText.value = ""
-
 const dialogDisplay = ref(false)
 
 const text = ref("")
 
-const start = () => {
-    usText.value = text.value
+const defaultStart = async () => {
+    const data = await getDefault()
+    usText.value = JSON.stringify(data)
+    router.push('/Typing')
+}
+
+const start = async () => {
+    const data = await getCustom(text.value)
+    usText.value = JSON.stringify(data)
     router.push('/Typing')
 }
 
