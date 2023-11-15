@@ -4543,8 +4543,7 @@ export const t2 = {
 					d: "primary",
 				},
 				{
-					c: "i",
-					s: "ì",
+					c: "e",
 					d: "primary",
 				},
 			],
@@ -5267,16 +5266,20 @@ export const t2 = {
 					d: "primary",
 				},
 				{
+					c: "u",
+					d: "primary",
+				},
+				{
 					c: "a",
 					s: "á",
 					d: "primary",
 				},
 				{
-					c: "i",
+					c: "n",
 					d: "primary",
 				},
 			],
-			signsLength: 3,
+			signsLength: 4,
 			d: "primary",
 		},
 		{
@@ -6589,12 +6592,12 @@ export const t2 = {
 			text: "行",
 			signs: [
 				{
-					c: "h",
+					c: "x",
 					d: "primary",
 				},
 				{
-					c: "a",
-					s: "á",
+					c: "i",
+					s: "í",
 					d: "primary",
 				},
 				{
@@ -29988,16 +29991,20 @@ export const t3 = {
 					d: "primary",
 				},
 				{
+					c: "u",
+					d: "primary",
+				},
+				{
 					c: "a",
 					s: "á",
 					d: "primary",
 				},
 				{
-					c: "i",
+					c: "n",
 					d: "primary",
 				},
 			],
-			signsLength: 3,
+			signsLength: 4,
 			d: "primary",
 		},
 		{
@@ -30253,7 +30260,7 @@ export const t3 = {
 				},
 				{
 					c: "a",
-					s: "à",
+					s: "á",
 					d: "primary",
 				},
 				{
@@ -32600,7 +32607,7 @@ export const t3 = {
 			text: "朝",
 			signs: [
 				{
-					c: "c",
+					c: "z",
 					d: "primary",
 				},
 				{
@@ -33128,16 +33135,20 @@ export const t3 = {
 					d: "primary",
 				},
 				{
+					c: "u",
+					d: "primary",
+				},
+				{
 					c: "a",
 					s: "á",
 					d: "primary",
 				},
 				{
-					c: "i",
+					c: "n",
 					d: "primary",
 				},
 			],
-			signsLength: 3,
+			signsLength: 4,
 			d: "primary",
 		},
 		{
@@ -34186,7 +34197,7 @@ export const t4 = {
 			text: "朝",
 			signs: [
 				{
-					c: "c",
+					c: "z",
 					d: "primary",
 				},
 				{
@@ -34195,7 +34206,7 @@ export const t4 = {
 				},
 				{
 					c: "a",
-					s: "á",
+					s: "ā",
 					d: "primary",
 				},
 				{
@@ -34918,16 +34929,20 @@ export const t4 = {
 					d: "primary",
 				},
 				{
+					c: "u",
+					d: "primary",
+				},
+				{
 					c: "a",
 					s: "á",
 					d: "primary",
 				},
 				{
-					c: "i",
+					c: "n",
 					d: "primary",
 				},
 			],
-			signsLength: 3,
+			signsLength: 4,
 			d: "primary",
 		},
 		{
@@ -35450,7 +35465,7 @@ export const t4 = {
 			text: "将",
 			signs: [
 				{
-					c: "j",
+					c: "q",
 					d: "primary",
 				},
 				{
