@@ -1,18 +1,18 @@
-GET  http://localhost:3000/api/v1/getdefault/2
+GET  http://localhost:8080/api/v1/getdefault/2
 
 
 ###
-POST http://localhost:3000/api/v1/getcustom
+POST http://localhost:8080/api/v1/getcustom
 Content-Type: application/json
 
 {
-    "text": "着急"
+    "text": "不复还"
 }
 
 ###
-POST http://localhost:3000/api/v1/getpinyin
+POST http://localhost:8080/api/v1/getpinyin
 Content-Type: application/json
 
 {
-    "text": "号"
+    "text": "重"
 }
