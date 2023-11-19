@@ -39471,7 +39471,7 @@ export const t5 = {
 			text: "重",
 			signs: [
 				{
-					c: "z",
+					c: "c",
 					d: "primary",
 				},
 				{
@@ -39480,7 +39480,7 @@ export const t5 = {
 				},
 				{
 					c: "o",
-					s: "ò",
+					s: "ó",
 					d: "primary",
 				},
 				{
@@ -40348,7 +40348,7 @@ export const t5 = {
 				},
 				{
 					c: "i",
-					s: "ī",
+					s: "ì",
 					d: "primary",
 				},
 			],
@@ -42939,12 +42939,12 @@ export const t5 = {
 			text: "骑",
 			signs: [
 				{
-					c: "q",
+					c: "j",
 					d: "primary",
 				},
 				{
 					c: "i",
-					s: "í",
+					s: "ì",
 					d: "primary",
 				},
 			],
@@ -44546,7 +44546,7 @@ export const t5 = {
 			text: "属",
 			signs: [
 				{
-					c: "s",
+					c: "z",
 					d: "primary",
 				},
 				{
@@ -46114,7 +46114,7 @@ export const t5 = {
 			text: "朝",
 			signs: [
 				{
-					c: "c",
+					c: "z",
 					d: "primary",
 				},
 				{
@@ -46123,7 +46123,7 @@ export const t5 = {
 				},
 				{
 					c: "a",
-					s: "á",
+					s: "ā",
 					d: "primary",
 				},
 				{
@@ -47746,7 +47746,7 @@ export const t5 = {
 			text: "重",
 			signs: [
 				{
-					c: "z",
+					c: "c",
 					d: "primary",
 				},
 				{
@@ -47755,7 +47755,7 @@ export const t5 = {
 				},
 				{
 					c: "o",
-					s: "ò",
+					s: "ó",
 					d: "primary",
 				},
 				{
@@ -49275,7 +49275,7 @@ export const t5 = {
 				},
 				{
 					c: "e",
-					s: "ě",
+					s: "è",
 					d: "primary",
 				},
 			],
@@ -49434,7 +49434,7 @@ export const t5 = {
 			text: "朝",
 			signs: [
 				{
-					c: "c",
+					c: "z",
 					d: "primary",
 				},
 				{
@@ -49443,7 +49443,7 @@ export const t5 = {
 				},
 				{
 					c: "a",
-					s: "á",
+					s: "ā",
 					d: "primary",
 				},
 				{
@@ -49614,16 +49614,20 @@ export const t5 = {
 					d: "primary",
 				},
 				{
+					c: "u",
+					d: "primary",
+				},
+				{
 					c: "a",
 					s: "á",
 					d: "primary",
 				},
 				{
-					c: "i",
+					c: "n",
 					d: "primary",
 				},
 			],
-			signsLength: 3,
+			signsLength: 4,
 			d: "primary",
 		},
 		{
@@ -49819,7 +49823,7 @@ export const t5 = {
 			signs: [
 				{
 					c: "o",
-					s: "ǒ",
+					s: "ō",
 					d: "primary",
 				},
 				{
@@ -49839,7 +49843,7 @@ export const t5 = {
 				},
 				{
 					c: "a",
-					s: "ǎ",
+					s: "ā",
 					d: "primary",
 				},
 			],
@@ -49850,7 +49854,7 @@ export const t5 = {
 			text: "嘲",
 			signs: [
 				{
-					c: "c",
+					c: "z",
 					d: "primary",
 				},
 				{
@@ -49859,7 +49863,7 @@ export const t5 = {
 				},
 				{
 					c: "a",
-					s: "á",
+					s: "ā",
 					d: "primary",
 				},
 				{
@@ -50170,7 +50174,11 @@ export const t5 = {
 			text: "乐",
 			signs: [
 				{
-					c: "l",
+					c: "y",
+					d: "primary",
+				},
+				{
+					c: "u",
 					d: "primary",
 				},
 				{
@@ -50179,7 +50187,7 @@ export const t5 = {
 					d: "primary",
 				},
 			],
-			signsLength: 2,
+			signsLength: 3,
 			d: "primary",
 		},
 		{
@@ -50295,7 +50303,7 @@ export const t5 = {
 				},
 				{
 					c: "e",
-					s: "è",
+					s: "ē",
 					d: "primary",
 				},
 				{
@@ -51074,7 +51082,7 @@ export const t5 = {
 			text: "重",
 			signs: [
 				{
-					c: "z",
+					c: "c",
 					d: "primary",
 				},
 				{
@@ -51083,7 +51091,7 @@ export const t5 = {
 				},
 				{
 					c: "o",
-					s: "ò",
+					s: "ó",
 					d: "primary",
 				},
 				{
