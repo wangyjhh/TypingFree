@@ -74,6 +74,12 @@ export default defineConfig({
 				"backdrop-filter": "blur(3px)",
 			},
 		],
+		[
+			"textColor",
+			{
+				color: "rgba(255, 255, 255, 0.65)",
+			},
+		],
 	],
 	shortcuts: [
 		[

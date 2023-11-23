@@ -9,6 +9,7 @@
             <button btn @click="dialogDisplay = true">自定义练习</button>
         </div>
     </div>
+    <WFiling position-absolute left="50%" bottom="1rem" centerX></WFiling>
     <Dialog :is-visible="dialogDisplay">
         <div box-border>
             <textarea v-model="text" w="100%" box-border placeholder="请输入自定义练习模板" bg-dark resize-none overflow-y-auto
@@ -28,6 +29,7 @@
 <script lang='ts' setup>
 import { ref, onMounted } from 'vue'
 import router from '@/router/index'
+import WFiling from '@/components/W-Filing.vue';
 import Dialog from '@/components/Dialog.vue'
 import { usText } from '@/composables/index'
 import TypeIt from "typeit";
