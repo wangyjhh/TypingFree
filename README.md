@@ -1,46 +1,33 @@
-# nice_typing
+# 欢迎使用Typing Free   
 
-This template should help get you started developing with Vue 3 in Vite.
+一个在线练习打字的网站
 
-## Recommended IDE Setup
+![typingfree](https://typingfree.top/typingfree.gif)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+体验地址
+----
+点击[这里](https://typingfree.top/)在线练习
 
-## Type Support for `.vue` Imports in TS
+项目背景  
+----
+  
+不久前无聊时，突然想练习下打字，网上找到了某个在线练习打字的网站，虽然功能很齐全，但使用时还是被各种限制恶心到了，一会儿注册账号，一会儿开通会员的，不行！还是我自己写一个吧，于是便有了本项目。  
+  
+功能特点  
+----  
+  
+* **🎉打字练习**: 在这个网站上，你可以使用默认提供的5篇诗词散文进行打字练习。 
+* **✨打字速度跟踪**: 你的打字速度会被实时跟踪和记录，你可以看到你的打字速度如何随着你的练习而提高。
+* **🎊打字错误统计**: 网站会统计你的打字错误次数，让你知道你在打字过程中需要改进的地方。  
+* **🏆自定义练习文本**: 支持填入自定义文本进行练习，不过多音字的拼音可能不太对。    
+* **👍无限制**: 你可以自由的使用这个网站，无需注册账号、开通会员或下载任何软件。
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+待办事项
+----
+* **在线键盘按键测试** 
+##### 测试本项目功能时，键盘的有个按键坏了，以为有bug找了半天😒
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+最后想说这个网站可能更倾向于盲打练习，希望也能对你有所帮助。
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
-## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-pnpm test:unit
-```
