@@ -2,7 +2,7 @@
     <div w="100%" h="100%" p-20px>
         <input ref="fakeInputRef" id="fake-input" type="password" autocomplete="off" autocorrect="off" autocapitalize="off"
             aria-hidden="true" style="outline: none; position: fixed; font-size: 1px; left: 50%; top: -200px"
-            @keyup="onKeyUp($event)" @keydown="onKeyDown($event)" />
+            @keyup="onKeyUp($event)" @keydown="onKeyDown($event)" @input="resetInputValue" />
         <div h-full bg="#1b1b1b" b-rd="24px" mb="12px" flex="~ 1 1 0%" flex-wrap flex-justify-start pt35 pb25 px10 gap5
             row-gap="30px" @click="inputFocus">
             <div absolute top="5%" left="50%" centerX>
@@ -253,6 +253,7 @@ const end = () => {
     }
 }
 
+// 按键抬起事件
 const onKeyUp = (e: KeyboardEvent) => {
     if (!textData.value.textDetail[textPosition]) {
         return
@@ -260,6 +261,7 @@ const onKeyUp = (e: KeyboardEvent) => {
     scrollChange()
 }
 
+// 按键按下事件
 const onKeyDown = (e: KeyboardEvent) => {
     if (!textData.value.textDetail[textPosition]) {
         return
@@ -302,6 +304,12 @@ const onKeyDown = (e: KeyboardEvent) => {
         backCount++
         return
     }
+}
+
+// 输入框输入事件
+const resetInputValue = () => {
+    // 每次输入都清空输入框的value值，避免浏览器自动触发密码保存提示
+    fakeInputRef.value.value = ""
 }
 
 watch(textData.value, () => {
