@@ -13,6 +13,11 @@ const router = createRouter({
 			name: "Typing",
 			component: () => import("../views/TypingV2.vue"),
 		},
+		{
+			path: "/Keyboard",
+			name: "Keyboard",
+			component: () => import("../views/Keyboard.vue"),
+		},
 	],
 })
 

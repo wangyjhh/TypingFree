@@ -80,6 +80,32 @@ export default defineConfig({
 				color: "rgba(255, 255, 255, 0.65)",
 			},
 		],
+		[
+			"transition-all",
+			{
+				transition: "all 0.15s",
+			},
+		],
+		[
+			"keyboard-ratio",
+			{
+				"aspect-ratio": "680/260",
+			},
+		],
+		[
+			"grid-keyboard",
+			{
+				"grid-template-rows": "1fr 7fr",
+				"grid-template-columns": "15fr 3fr 4fr",
+			},
+		],
+		[
+			"key-gap",
+			{
+				"row-gap": "1.11vw",
+				"column-gap": "1.27vw",
+			},
+		],
 	],
 	shortcuts: [
 		[
