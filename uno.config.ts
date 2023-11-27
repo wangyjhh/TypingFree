@@ -96,14 +96,14 @@ export default defineConfig({
 			"grid-keyboard",
 			{
 				"grid-template-rows": "1fr 7fr",
-				"grid-template-columns": "15fr 3fr 4fr",
+				"grid-template-columns": "15fr 3fr 5fr",
 			},
 		],
 		[
 			"key-gap",
 			{
 				"row-gap": "1.11vw",
-				"column-gap": "1.27vw",
+				"column-gap": "0.3vw",
 			},
 		],
 	],

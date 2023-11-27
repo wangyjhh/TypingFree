@@ -5,15 +5,37 @@
     <div w="100%" h="100%" p-20px @click="inputFocus">
         <div w="100%" keyboard-ratio border="1px solid  #ddd" grid grid-keyboard>
             <div p-1vw bg-black border="1px solid  #ddd" flex key-gap items-center>
-                <Key v-for="item in keystateList" :key-state="item.keystate" :style="item.style">
+                <Key v-for="item in fzoneList" :key-state="item.keystate" :style="item.style">
                     {{ item.key_alias }}
                 </Key>
             </div>
-            <div bg-black border="1px solid  #ddd">2</div>
-            <div bg-black border="1px solid  #ddd">3</div>
-            <div bg-black border="1px solid #ddd">4</div>
-            <div bg-black border="1px solid #ddd">5</div>
-            <div bg-black border="1px solid #ddd">6</div>
+            <div p-1vw bg-black border="1px solid  #ddd" flex key-gap items-center>
+                <Key v-for="item in windowsList" :key-state="item.keystate">
+                    {{ item.key_alias }}
+                </Key>
+            </div>
+            <div p-1vw bg-black border="1px solid  #ddd"></div>
+            <div p-1vw bg-black border="1px solid #ddd" flex flex-wrap key-gap items-center>
+                <Key v-for="item in charsList" :key-state="item.keystate">
+                    <template v-if="Array.isArray(item.key_alias)">
+                        <span v-for="it in item.key_alias">{{ it }}</span>
+                    </template>
+                    <template v-else>
+
+                        <span>{{ item.key_alias }}</span>
+                    </template>
+                </Key>
+            </div>
+            <div p-1vw bg-black border="1px solid #ddd" grid grid-rows-5 grid-cols-3>
+                <Key v-for="item in dirList" :key-state="item.keystate">
+                    {{ item.key_alias }}
+                </Key>
+            </div>
+            <div p-1vw bg-black border="1px solid #ddd" grid grid-rows-5 grid-cols-4>
+                <Key v-for="item in numList" :key-state="item.keystate">
+                    {{ item.key_alias }}
+                </Key>
+            </div>
         </div>
     </div>
 </template>
@@ -21,23 +43,76 @@
 <script lang='ts' setup>
 import { ref, onMounted } from "vue"
 import Key from '@/components/Key.vue'
+import { getKeyIndex, KeyMap, fzone, windows, chars, dir, num } from '@/utils/keyHandle';
+
+fzone.map((key) => {
+
+    return {
+        key_alias: KeyMap[key],
+        keyCode: key,
+        keystate: false,
+        style: 'margin-left:3.8vw'
+    }
+
+})
+
 
 const fakeInputRef = ref()
-const keystateList = ref([
-    { key_alias: 'ESC', key: 'Escape', keystate: false },
-    { key_alias: 'F1', key: 'F1', keystate: false, style: 'margin-left:3.8vw' },
-    { key_alias: 'F2', key: 'F2', keystate: false },
-    { key_alias: 'F3', key: 'F3', keystate: false },
-    { key_alias: 'F4', key: 'F4', keystate: false },
-    { key_alias: 'F5', key: 'F5', keystate: false, style: 'margin-left:2vw' },
-    { key_alias: 'F6', key: 'F6', keystate: false },
-    { key_alias: 'F7', key: 'F7', keystate: false },
-    { key_alias: 'F8', key: 'F8', keystate: false },
-    { key_alias: 'F9', key: 'F9', keystate: false, style: 'margin-left:2vw' },
-    { key_alias: 'F10', key: 'F10', keystate: false },
-    { key_alias: 'F11', key: 'F11', keystate: false },
-    { key_alias: 'F12', key: 'F12', keystate: false },
-])
+
+const fzoneList = ref(fzone.map((key) => {
+    let style = undefined
+    if (key === 112) {
+        style = 'margin-left:3.8vw'
+    } else if (key === 116 || key === 120) {
+        style = 'margin-left:2vw'
+    }
+    return {
+        key_alias: KeyMap[key],
+        keyCode: key,
+        keystate: false,
+        style
+    }
+}))
+
+const windowsList = ref(windows.map((key) => {
+    let style = undefined
+    return {
+        key_alias: KeyMap[key],
+        keyCode: key,
+        keystate: false,
+        style
+    }
+}))
+
+const charsList = ref(chars.map((key) => {
+    let style = undefined
+    return {
+        key_alias: KeyMap[key],
+        keyCode: key,
+        keystate: false,
+        style
+    }
+}))
+
+const dirList = ref(dir.map((key) => {
+    let style = undefined
+    return {
+        key_alias: KeyMap[key],
+        keyCode: key,
+        keystate: false,
+        style
+    }
+}))
+
+const numList = ref(num.map((key) => {
+    let style = undefined
+    return {
+        key_alias: KeyMap[key],
+        keyCode: key,
+        keystate: false,
+        style
+    }
+}))
 
 const inputFocus = () => {
     fakeInputRef.value.focus()
@@ -47,19 +122,57 @@ onMounted(() => {
     inputFocus()
 })
 
+
+
 const onKeyDown = (e: KeyboardEvent) => {
-    console.log(e.key)
+    console.log(e.key, e.keyCode)
+    let key = getKeyIndex(e.keyCode)
+    console.log(key);
 
-    let index = keystateList.value.findIndex(item => item.key === e.key)
-    if (index === -1) return
+    if (key?.index === -1) return
+    switch (key?.area) {
+        case "fzone":
+            fzoneList.value[key.index].keystate = true
+            break;
+        case "windows":
+            windowsList.value[key.index].keystate = true
+            break;
+        case "chars":
+            charsList.value[key.index].keystate = true
+            break;
+        case "dir":
+            dirList.value[key.index].keystate = true
+            break;
+        case "num":
+            numList.value[key.index].keystate = true
+            break;
+    }
+    console.log(windowsList.value[2].keystate);
 
-    keystateList.value[index].keystate = true
 }
 
 const onKeyUp = (e: KeyboardEvent) => {
-    let index = keystateList.value.findIndex(item => item.key === e.key)
-    if (index === -1) return
-    keystateList.value[index].keystate = false
+    let key = getKeyIndex(e.keyCode)
+    if (key?.index === -1) return
+    switch (key?.area) {
+        case "fzone":
+            fzoneList.value[key.index].keystate = false
+            break;
+        case "windows":
+            windowsList.value[key.index].keystate = false
+            break;
+        case "chars":
+            charsList.value[key.index].keystate = false
+            break;
+        case "dir":
+            dirList.value[key.index].keystate = false
+            break;
+        case "num":
+            numList.value[key.index].keystate = false
+            break;
+    }
+    console.log(windowsList.value[2].keystate);
+
 }
 
 const resetInputValue = () => {
