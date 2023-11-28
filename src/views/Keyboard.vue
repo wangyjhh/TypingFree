@@ -3,6 +3,10 @@
         style="outline: none; position: fixed; font-size: 1px; left: 50%; top: -200px" @keyup.prevent="onKeyUp($event)"
         @keydown.prevent="onKeyDown($event)" @input="resetInputValue" />
     <div w="100%" h="100%" p-5 @click="inputFocus">
+        <div>
+            <button btn m-b m-r-20px @click="router.back()">返回</button>
+            <button btn @click="reset" m-r-20px>刷新</button>
+        </div>
         <div w="100%" font-size="0.7vw" bg-gray b-rd-2 keyboard-ratio grid grid-keyboard>
             <div p-1vw p-t-2vw p-l-2vw flex key-gap items-center>
                 <Key v-for="item in fzoneList" :key-state="item.keystate" :style="item.style">
@@ -43,8 +47,13 @@
 
 <script lang='ts' setup>
 import { ref, onMounted } from "vue"
+import router from '@/router/index'
 import Key from '@/components/Key.vue'
 import { getKeyIndex, KeyMap, fzone, windows, chars, dir, num } from '@/utils/keyHandle';
+
+const reset = () => {
+    location.reload()
+}
 
 const fakeInputRef = ref()
 
@@ -144,10 +153,7 @@ onMounted(() => {
 
 
 const onKeyDown = (e: KeyboardEvent) => {
-    console.log(e.key, e.keyCode)
     let key = getKeyIndex(e.keyCode)
-    console.log(key);
-
     if (key?.index === -1) return
     switch (key?.area) {
         case "fzone":
@@ -166,8 +172,6 @@ const onKeyDown = (e: KeyboardEvent) => {
             numList.value[key.index].keystate = true
             break;
     }
-    console.log(windowsList.value[2].keystate);
-
 }
 
 const onKeyUp = (e: KeyboardEvent) => {
@@ -190,8 +194,6 @@ const onKeyUp = (e: KeyboardEvent) => {
             numList.value[key.index].keystate = false
             break;
     }
-    console.log(windowsList.value[2].keystate);
-
 }
 
 const resetInputValue = () => {

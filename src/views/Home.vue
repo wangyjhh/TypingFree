@@ -1,15 +1,13 @@
 <template>
     <div w="100%" h="100%" p-20px flex flex-col justify-center flex-items-center>
-        <div position-absolute top-5 left-5>
-            <button btn @click="router.push('/Keyboard')">键盘测试</button>
-        </div>
         <div w="60%" border-rd="10px" text-center font-size-60px m-b="100px" flex flex-items-baseline justify-center
             bg="#1b1b1b" p-50px>
             <div id="typing"></div>
         </div>
         <div>
             <button btn m-r-50px @click="defaultStart">开始练习</button>
-            <button btn @click="dialogDisplay = true">自定义练习</button>
+            <button btn m-r-50px @click="dialogDisplay = true">自定义练习</button>
+            <button btn @click="router.push('/Keyboard')">键盘测试</button>
         </div>
     </div>
     <WFiling position-absolute left="50%" bottom="1rem" centerX></WFiling>
