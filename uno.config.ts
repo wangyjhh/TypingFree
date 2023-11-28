@@ -89,20 +89,20 @@ export default defineConfig({
 		[
 			"keyboard-ratio",
 			{
-				"aspect-ratio": "680/260",
+				"aspect-ratio": "800/250",
 			},
 		],
 		[
 			"grid-keyboard",
 			{
-				"grid-template-rows": "1fr 7fr",
-				"grid-template-columns": "15fr 3fr 5fr",
+				"grid-template-rows": "1fr 5fr",
+				"grid-template-columns": "11fr 2fr 3.3fr",
 			},
 		],
 		[
 			"key-gap",
 			{
-				"row-gap": "1.11vw",
+				"row-gap": "0.3vw",
 				"column-gap": "0.3vw",
 			},
 		],

@@ -1,22 +1,43 @@
 <template>
-    <div w="3.8vw" h="3.8vw" :style="style" font-size="1vw" bg="#444" position-relative flex items-center justify-center
-        border-rd=".42vw" border="1px solid ##a7a9a7">
-        <div ref="keyRef" w="3.3vw" h="3.3vw" p-1vw bg="#1a1a1a" position-absolute top="-0.45vw" color="#fff" flex
-            items-center justify-center border-rd=".42vw" transition-all border-b="0.1vw solid #a7a9a7">
+    <div v-if="isNull" :style="`width:${componentWidth}vw;height:${componentHeight}vw`" f>
+    </div>
+    <div v-else :style="`${style};width:${componentWidth}vw;height:${componentHeight}vw`" bg="#444" position-relative flex
+        items-center justify-center border-rd=".42vw" border="1px solid ##a7a9a7">
+        <div ref="keyRef" :style="`width:${keyWidth}vw;height:${keyHeight}vw`" p-1vw bg="#1a1a1a" position-absolute
+            top="-0.45vw" color="#fff" flex items-center justify-center border-rd=".42vw" transition-all
+            border-b="0.1vw solid #a7a9a7">
             <slot></slot>
         </div>
-        <div w="3.3vw" h="3.3vw" p-1vw bg="#222" flex items-center justify-center border-rd=".42vw"></div>
+        <div :style="`width:${keyWidth}vw;height:${keyHeight}vw`" p-1vw bg="#222" flex items-center justify-center
+            border-rd=".42vw">
+        </div>
     </div>
 </template>
 
 <script lang='ts' setup>
-import { ref, watch } from "vue"
+import { ref, watch, computed } from "vue"
 
 const keyRef = ref<HTMLElement | null>(null)
 
 const props = defineProps({
     keyState: Boolean,
-    style: String
+    style: String,
+    isNull: Boolean,
+    componentWidth: {
+        type: Number,
+        default: 3.8
+    },
+    componentHeight: {
+        type: Number,
+        default: 3.8
+    }
+})
+
+const keyWidth = computed(() => {
+    return props.componentWidth - 0.5
+})
+const keyHeight = computed(() => {
+    return props.componentHeight - 0.5
 })
 
 const keydownHandle = () => {
