@@ -1,7 +1,7 @@
 <template>
-    <input ref="fakeInputRef" type="password" autocomplete="off" autocorrect="off" autocapitalize="off" aria-hidden="true"
-        style="outline: none; position: fixed; font-size: 1px; left: 50%; top: -200px" @keyup.prevent="onKeyUp($event)"
-        @keydown.prevent="onKeyDown($event)" @input="resetInputValue" />
+    <input ref="fakeInputRef" type="password" autocomplete="off" autocorrect="off" autocapitalize="off"
+        aria-hidden="true" style="outline: none; position: fixed; font-size: 1px; left: 50%; top: -200px"
+        @keyup.prevent="onKeyUp($event)" @keydown.prevent="onKeyDown($event)" @input="resetInputValue" />
     <div w="100%" h="100%" p-5 @click="inputFocus">
         <div>
             <button btn m-b m-r-20px @click="router.back()">返回</button>
