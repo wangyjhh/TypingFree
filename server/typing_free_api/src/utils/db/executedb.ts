@@ -27,9 +27,9 @@ export const odb = async (sql: string) => {
 		outFormat: oracledb.OUT_FORMAT_OBJECT,
 	}
 	const connection = await oracledb.getConnection({
-		user: "reader_wlc_hf",
-		password: "reader_wlc_hf123456",
-		connectString: "10.48.153.36:1521/wdpw",
+		user: "[user]",
+		password: "[password]",
+		connectString: "[host:port/databases]",
 	})
 	const result = await connection.execute(sql, [], options)
 	await connection.close()
