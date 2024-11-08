@@ -1,52 +1,23 @@
-<template>
-    <div w="100%" h="100%" p-20px flex flex-col justify-center flex-items-center>
-        <div w="60%" border-rd="10px" text-center font-size-60px m-b="100px" flex flex-items-baseline justify-center
-            bg="#1b1b1b" p-50px>
-            <div id="typing"></div>
-        </div>
-        <div>
-            <button btn m-r-50px @click="defaultStart">开始练习</button>
-            <button btn m-r-50px @click="dialogDisplay = true">自定义练习</button>
-            <button btn @click="router.push('/Keyboard')">键盘测试</button>
-        </div>
-    </div>
-    <WFiling position-absolute left="50%" bottom="1rem" centerX></WFiling>
-    <Dialog :is-visible="dialogDisplay">
-        <div box-border>
-            <textarea v-model="text" w="100%" box-border placeholder="请输入自定义练习模板" bg-dark resize-none overflow-y-auto
-                rows="10"></textarea>
-        </div>
-        <template v-slot:footer>
-            <div flex justify-between>
-                <button btn @click="start">开始</button>
-                <button btn @click="closeDialog">关闭</button>
-            </div>
-        </template>
-    </Dialog>
-    <span></span>
-</template>
-
-
 <script lang='ts' setup>
-import { ref, onMounted } from 'vue'
-import router from '@/router/index'
-import WFiling from '@/components/W-Filing.vue';
+import { getCustom, getDefault } from '@/api/index'
 import Dialog from '@/components/Dialog.vue'
+import WFiling from '@/components/W-Filing.vue'
 import { usText } from '@/composables/index'
-import TypeIt from "typeit";
-import { getDefault, getCustom } from '@/api/index';
+import router from '@/router/index'
+import TypeIt from 'typeit'
+import { onMounted, ref } from 'vue'
 
-let cursor = ref(`
+const cursor = ref(`
 <span style="margin-left:8px;background:rgba(249, 250, 252, 0.2);color:#f9faf;box-shadow:#ff7008 0px -4px 0px inset">|</span>`)
 
 onMounted(() => {
     // @ts-ignore
-    new TypeIt("#typing", {
+    new TypeIt('#typing', {
         startDelay: 1000,
         deleteSpeed: 100,
         loop: true,
         loopDelay: 2000,
-        cursorChar: cursor.value
+        cursorChar: cursor.value,
     })
         .type(`<span style="background: rgba(48, 178, 140, 0.2);color:#3aa675;">Typing </span>`)
         .type(`<span style="background: rgba(229, 79, 74, 0.2);color:#e54f4a;">Bound</span>`)
@@ -62,7 +33,7 @@ onMounted(() => {
 
 const dialogDisplay = ref(false)
 
-const text = ref("")
+const text = ref('')
 
 const defaultStart = async () => {
     const data = await getDefault()
@@ -77,9 +48,50 @@ const start = async () => {
 }
 
 const closeDialog = () => {
-    usText.value = ""
+    usText.value = ''
     dialogDisplay.value = false
-    text.value = ""
+    text.value = ''
 }
-
 </script>
+
+<template>
+    <div w="100%" h="100%" p-20px flex flex-col justify-center flex-items-center>
+        <div
+            w="60%" border-rd="10px" text-center font-size-60px m-b="100px" flex flex-items-baseline justify-center
+            bg="#1b1b1b" p-50px
+        >
+            <div id="typing" />
+        </div>
+        <div>
+            <button btn m-r-50px @click="defaultStart">
+                开始练习
+            </button>
+            <button btn m-r-50px @click="dialogDisplay = true">
+                自定义练习
+            </button>
+            <button btn @click="router.push('/Keyboard')">
+                键盘测试
+            </button>
+        </div>
+    </div>
+    <WFiling position-absolute left="50%" bottom="1rem" center-x />
+    <Dialog :is-visible="dialogDisplay">
+        <div box-border>
+            <textarea
+                v-model="text" w="100%" box-border placeholder="请输入自定义练习模板" bg-dark resize-none overflow-y-auto
+                rows="10"
+            />
+        </div>
+        <template #footer>
+            <div flex justify-between>
+                <button btn @click="start">
+                    开始
+                </button>
+                <button btn @click="closeDialog">
+                    关闭
+                </button>
+            </div>
+        </template>
+    </Dialog>
+    <span />
+</template>
