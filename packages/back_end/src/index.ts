@@ -1,3 +1,4 @@
+import { log } from 'node:console'
 import fs from 'node:fs'
 import https from 'node:https'
 import { dirname, join } from 'node:path'
@@ -8,7 +9,7 @@ import app from './app/app'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-console.log(__dirname)
+log(__dirname)
 
 const options = {
     key: fs.readFileSync(join(__dirname, '../cert/typingfree.top.key')),
@@ -18,5 +19,5 @@ const options = {
 const httpsServer = https.createServer(options, app)
 
 httpsServer.listen(APP_PORT, () => {
-    console.log(`server is running at \n> Local: https://typingfree.top:${APP_PORT}`)
+    log(`server is running at \n> Local: https://typingfree.top:${APP_PORT}`)
 })

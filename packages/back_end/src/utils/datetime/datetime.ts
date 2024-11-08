@@ -89,7 +89,7 @@ export class GetDate implements GetDateimplements {
                 return 31
                 break
             case 2:
-                if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+                if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
                     return 29
                 }
                 else {

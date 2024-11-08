@@ -4,12 +4,10 @@ import { ref } from 'vue'
 const filingRef = ref<HTMLAnchorElement>()
 
 const copy = () => {
-    const textToCopy = filingRef.value!.innerText
-
-    console.log(textToCopy)
+    const textToCopy = filingRef.value!.textContent
 
     navigator.clipboard
-        .writeText(textToCopy)
+        .writeText(textToCopy!)
         .then(() => {
             window.open('https://beian.miit.gov.cn/', '_blank')
         })

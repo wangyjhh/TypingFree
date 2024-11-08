@@ -181,7 +181,7 @@ const resetInputValue = () => {
         </div>
         <div w="100%" font-size="0.7vw" bg-gray b-rd-2 keyboard-ratio grid grid-keyboard>
             <div p-1vw p-t-2vw p-l-2vw flex key-gap items-center>
-                <Key v-for="item in fzoneList" :key-state="item.keystate" :style="item.style">
+                <Key v-for="item in fzoneList" :key="item." :key-state="item.keystate" :style="item.style">
                     {{ item.key_alias }}
                 </Key>
             </div>

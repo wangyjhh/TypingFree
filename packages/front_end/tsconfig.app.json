@@ -2,11 +2,11 @@
     "extends": "@vue/tsconfig/tsconfig.dom.json",
     "compilerOptions": {
         "composite": true,
-        "baseUrl": ".",
+        "baseUrl": "./",
         "paths": {
-            "@/*": ["packages/front_end/src/*"]
+            "@/*": ["./src/*"]
         }
     },
-    "include": ["./env.d.ts", "./src/**/*", "./src/**/*.vue", "types/index.ts"],
-    "exclude": ["./src/**/__tests__/*"]
+    "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "types/index.ts"],
+    "exclude": ["src/**/__tests__/*"]
 }

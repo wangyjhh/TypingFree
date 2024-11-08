@@ -74,7 +74,7 @@ const closeDialog = () => {
             </button>
         </div>
     </div>
-    <WFiling position-absolute left="50%" bottom="1rem" center-x />
+    <WFiling position-absolute bottom="1rem" center-x />
     <Dialog :is-visible="dialogDisplay">
         <div box-border>
             <textarea

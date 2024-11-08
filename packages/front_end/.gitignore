@@ -28,3 +28,4 @@ coverage
 *.sw?
 stats.html
 cert/
+send2server.config.ts
