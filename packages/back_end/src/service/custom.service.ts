@@ -1,3 +1,4 @@
+import type { Signs, TextData } from '../../../front_end/types'
 import { pinyin } from 'pinyin-pro'
 
 export const getcustomHandle = async (text: string) => {
@@ -35,7 +36,7 @@ export const getcustomHandle = async (text: string) => {
         }
         // 拼音字符形式
         const pinyinCharacters = pinyin(text, { v: true, toneType: 'none' }).split(' ')
-        // 	// 拼音字母形式
+        // 拼音字母形式
         const pinyinAlphabet = pinyin(text).split(' ')
         const textArr = text.split('')
         for (let i = 0; i < textArr.length; i++) {
