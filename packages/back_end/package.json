@@ -21,12 +21,12 @@
     ],
     "scripts": {
         "dev": "tsx watch ./src/index.ts",
-        "build": "unbuild",
+        "send": "send2server",
+        "build": "unbuild && pnpm send",
         "start": "node ./dist/index.mjs",
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
-        "dotenv": "^16.4.5",
         "express": "^4.21.1",
         "jsonwebtoken": "^9.0.2",
         "mysql": "^2.18.1",
@@ -38,6 +38,7 @@
         "@types/jsonwebtoken": "^9.0.7",
         "@types/mysql": "^2.15.26",
         "@types/oracledb": "^6.5.2",
+        "send2server": "^0.2.4",
         "tsx": "^3.14.0",
         "typescript": "^5.6.3",
         "unbuild": "^2.0.0"
