@@ -1,4 +1,5 @@
 <script lang='ts' setup>
+import type { Position, SignsState, TextData } from '@/../types'
 import Dialog from '@/components/Dialog.vue'
 import { usText } from '@/composables/index'
 import router from '@/router/index'
@@ -8,23 +9,18 @@ const fakeInputRef = ref()
 
 const typeContainerRef = ref<HTMLDivElement>()
 
-const reset = () => {
-    closeDialog()
-    location.reload()
-}
-
 const back = () => {
     usText.value = ''
     router.back()
 }
 
-onMounted(() => {
-    inputFocus()
-})
-
 const inputFocus = () => {
     fakeInputRef.value.focus()
 }
+
+onMounted(() => {
+    inputFocus()
+})
 
 const textData = ref<TextData>(JSON.parse(usText.value))
 
@@ -69,7 +65,7 @@ init()
 const positionChange = (type: string) => {
     const oldValue = { textPosition, pinyinPosition }
     if (type === 'next') {
-        if (pinyinPosition + 1 == textData.value.textDetail[textPosition].signsLength) {
+        if (pinyinPosition + 1 === textData.value.textDetail[textPosition].signsLength) {
             textPosition++
             pinyinPosition = 0
         }
@@ -78,7 +74,7 @@ const positionChange = (type: string) => {
         }
     }
     if (type === 'prev') {
-        if (pinyinPosition == 0) {
+        if (pinyinPosition === 0) {
             textPosition--
             pinyinPosition = textData.value.textDetail[textPosition].signsLength - 1
         }
@@ -164,11 +160,11 @@ const updateTypeInfo = () => {
     schedule = `${float}%`
     let rightCount = 0
     for (let i = 0; i < textPosition; i++) {
-        if (textData.value.textDetail[i].d == 'success') {
+        if (textData.value.textDetail[i].d === 'success') {
             rightCount++
         }
     }
-    accuracy = `${rightCount == 0 ? 0 : Number.parseInt((((rightCount) / textPosition) * 100).toFixed(2))
+    accuracy = `${rightCount === 0 ? 0 : Number.parseInt((((rightCount) / textPosition) * 100).toFixed(2))
     }% `
     const currentTime = Date.now()
     if (!startTime)
@@ -186,18 +182,23 @@ const closeDialog = () => {
     endDialogDisplay.value = false
 }
 
+const reset = () => {
+    closeDialog()
+    location.reload()
+}
+
 // 结束判断
 const end = () => {
-    if (textPosition == textData.value.textDetail.length) {
+    if (textPosition === textData.value.textDetail.length) {
         endTime = Date.now()
         const timeDiff = endTime - startTime
         keySpeed = (inputCount / timeDiff * 60000).toFixed()
         typingSpeed = (textPosition / timeDiff * 60000).toFixed()
         textData.value.textDetail.forEach((it) => {
-            if (it.d == 'success') {
+            if (it.d === 'success') {
                 correctCount++
             }
-            if (it.d == 'error') {
+            if (it.d === 'error') {
                 errorCount++
             }
         })
@@ -206,7 +207,7 @@ const end = () => {
 }
 
 // 按键抬起事件
-const onKeyUp = (e: KeyboardEvent) => {
+const onKeyUp = (_e: KeyboardEvent) => {
     if (!textData.value.textDetail[textPosition]) {
         return
     }
@@ -291,7 +292,7 @@ watch(textData.value, () => {
                 row-gap="30px" overflow-y-auto class="type-container"
             >
                 <div
-                    v-for="(item, index) in textData.textDetail" ref="textRef" :key="index" flex flex-col flex-items-center
+                    v-for="(item, index) in textData.textDetail" :key="index" flex flex-col flex-items-center
                     justify-center font-size-45px
                 >
                     <div v-if="item.text !== '①'" flex flex-row gap1>

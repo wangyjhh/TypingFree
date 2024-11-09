@@ -1,3 +1,4 @@
+import type { Signs, TextData } from '@/../types'
 import pinyin from 'pinyin'
 import { ref } from 'vue'
 

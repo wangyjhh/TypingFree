@@ -11,7 +11,6 @@ const cursor = ref(`
 <span style="margin-left:8px;background:rgba(249, 250, 252, 0.2);color:#f9faf;box-shadow:#ff7008 0px -4px 0px inset">|</span>`)
 
 onMounted(() => {
-    // @ts-ignore
     new TypeIt('#typing', {
         startDelay: 1000,
         deleteSpeed: 100,

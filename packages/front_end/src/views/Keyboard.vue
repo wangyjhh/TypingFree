@@ -181,20 +181,20 @@ const resetInputValue = () => {
         </div>
         <div w="100%" font-size="0.7vw" bg-gray b-rd-2 keyboard-ratio grid grid-keyboard>
             <div p-1vw p-t-2vw p-l-2vw flex key-gap items-center>
-                <Key v-for="item in fzoneList" :key="item." :key-state="item.keystate" :style="item.style">
+                <Key v-for="item in fzoneList" :key="item.keyCode" :key-state="item.keystate" :style="item.style">
                     {{ item.key_alias }}
                 </Key>
             </div>
             <div p-1vw p-t-2vw flex key-gap items-center>
-                <Key v-for="item in windowsList" :key-state="item.keystate">
+                <Key v-for="item in windowsList" :key="item.keyCode" :key-state="item.keystate">
                     {{ item.key_alias }}
                 </Key>
             </div>
             <div p-1vw p-t-2vw />
             <div p-1vw p-b-2vw p-l-2vw flex flex-wrap key-gap items-center flex-content-center>
-                <Key v-for="item in charsList" :key-state="item.keystate" :component-width="item.width">
+                <Key v-for="item in charsList" :key="item.keyCode" :key-state="item.keystate" :component-width="item.width">
                     <template v-if="Array.isArray(item.key_alias)">
-                        <span v-for="it in item.key_alias">{{ it }}</span>
+                        <span v-for="it in item.key_alias" :key="it">{{ it }}</span>
                     </template>
                     <template v-else>
                         <span>{{ item.key_alias }}</span>
@@ -202,14 +202,15 @@ const resetInputValue = () => {
                 </Key>
             </div>
             <div p-1vw p-b-2vw grid key-gap grid-cols-3 grid-content-center>
-                <Key v-for="item in dirList" :key-state="item.keystate" :is-null="item.isNull">
+                <Key v-for="item in dirList" :key="item.keyCode" :key-state="item.keystate" :is-null="item.isNull">
                     {{ item.key_alias }}
                 </Key>
             </div>
             <div p-1vw p-b-2vw p-r-2vw grid key-gap grid-cols-4>
                 <Key
-                    v-for="item in numList" :key-state="item.keystate" :component-width="item.width"
-                    :component-height="item.height" :style="item.style" grid-content-center
+                    v-for="item in numList" :key="item.keyCode" :key-state="item.keystate"
+                    :component-width="item.width" :component-height="item.height" :style="item.style"
+                    grid-content-center
                 >
                     {{ item.key_alias }}
                 </Key>

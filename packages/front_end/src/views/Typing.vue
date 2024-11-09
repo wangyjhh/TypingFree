@@ -2,18 +2,6 @@
 import { onMounted, ref } from 'vue'
 import { generateTypeTemplate } from '../utils/index'
 
-const fakeInputRef = ref()
-
-onMounted(() => {
-    fakeInputRef.value.focus()
-    textRef.value![0].children[0].children[0].className = 'ready'
-    textRef.value![0].children[1].className = 'tready'
-})
-
-const onClick = () => {
-    fakeInputRef.value.focus()
-}
-
 const text = ref(`这是一段示例文本，用于展示文本的基本格式和排版。这段文本包含了一些常见的文本元素，例如标题、段落、列表和引用。  
   
 一、标题  
@@ -44,6 +32,20 @@ const backCount = ref(0)
 let textLength = 0
 let pinyinLength = 0
 
+const fakeInputRef = ref()
+
+onMounted(() => {
+    if (!textRef.value)
+        return
+    fakeInputRef.value.focus()
+    textRef.value![0].children[0].children[0].className = 'ready'
+    textRef.value![0].children[1].className = 'tready'
+})
+
+const onClick = () => {
+    fakeInputRef.value.focus()
+}
+
 const onKeyDown = (e: KeyboardEvent) => {
     const signsLength = textData.value.textDetail[textLength].signs.length
     const targetKey = textData.value.textDetail[textLength].signs[pinyinLength].c
@@ -66,7 +68,7 @@ const onKeyDown = (e: KeyboardEvent) => {
         return
     }
     if (e.key === targetKey) {
-        if (backCount.value != 0) {
+        if (backCount.value !== 0) {
             if (inputValue.value.length === textData.value.totalSigns - 1) {
                 textRef.value![textLength].children[0].children[pinyinLength].className = 'warning'
             }
@@ -128,9 +130,9 @@ const onKeyDown = (e: KeyboardEvent) => {
     inputValue.value.push(e.key)
 }
 
-const onKeyUp = (e: KeyboardEvent) => {
+const onKeyUp = (_e: KeyboardEvent) => {
     if (inputValue.value.length === textData.value.totalSigns) {
-        alert('结束')
+        // alert('结束')
     }
 }
 </script>
