@@ -1,4 +1,4 @@
-import { defineConfig, presetAttributify, presetIcons, presetUno, presetWebFonts } from 'unocss'
+import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss'
 
 export default defineConfig({
     rules: [
@@ -106,6 +106,12 @@ export default defineConfig({
                 'column-gap': '0.3vw',
             },
         ],
+        [
+            'maple-font',
+            {
+                'font-family': 'Maple Mono CN,Maple Mono',
+            },
+        ],
     ],
     shortcuts: [
         [
@@ -124,10 +130,10 @@ export default defineConfig({
             scale: 1.2,
             warn: true,
         }),
-        presetWebFonts({
-            fonts: {
-                mono: 'JetBrains Mono',
-            },
-        }),
     ],
+    theme: {
+        fontFamily: {
+            cdn: ['Maple Mono CN', 'Maple Mono'],
+        },
+    },
 })
