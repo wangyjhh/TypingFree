@@ -6,7 +6,7 @@
 
 体验地址
 ----
-点击[这里](https://typingfree.top/)在线练习
+点击[这里](https://typingfree.top:8080)在线练习
 
 项目背景
 ----
